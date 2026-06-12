@@ -72,6 +72,8 @@
         .room-gallery-btn.prev { left: 10px; }
         .room-gallery-btn.next { right: 10px; }
         .room-gallery-count { position: absolute; right: 10px; bottom: 10px; background: rgba(0,0,0,0.65); color: #fff; border-radius: 999px; padding: 4px 10px; font-size: 12px; z-index: 2; }
+        .availability-badge { position: absolute; left: 10px; bottom: 10px; z-index: 3; border-radius: 999px; padding: 6px 11px; font-size: 12px; font-weight: 700; background: #25d366; color: #082512; box-shadow: 0 6px 15px rgba(0,0,0,0.3); }
+        .availability-badge.unavailable { background: #ff4757; color: #fff; }
         .room-info { padding: 25px; }
         .room-info h3 { font-size: 22px; margin-bottom: 10px; }
         .price { color: #d4af37; font-size: 14px; margin-bottom: 15px; }
@@ -93,6 +95,11 @@
         .testimonial-card { background: #1a1a1a; padding: 30px; border-radius: 10px; border-left: 4px solid #d4af37; }
         .quote { color: #aaa; font-style: italic; margin-bottom: 15px; }
         .testimonial-card h4 { color: #d4af37; }
+        .testimonial-form { margin-top: 30px; background: #1a1a1a; border: 1px solid #222; border-radius: 10px; padding: 25px; }
+        .testimonial-form h3 { color: #d4af37; margin-bottom: 15px; font-size: 20px; }
+        .testimonial-form-grid { display: grid; grid-template-columns: 1fr 2fr auto; gap: 12px; align-items: start; }
+        .site-input { width: 100%; padding: 12px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 14px; font-family: 'Poppins', sans-serif; }
+        .site-input:focus { outline: none; border-color: #d4af37; }
 
         /* CONTACT */
         .contact-section { padding: 100px 0; background-color: #1a1a1a; }
@@ -122,7 +129,8 @@
         .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #222; color: #666; font-size: 14px; }
 
         /* ===================== ADMIN PANEL ===================== */
-        .admin-section { padding: 60px 0; border-top: 2px solid #333; background: #0e0e0e; }
+        .admin-section { display: none; padding: 60px 0; border-top: 2px solid #333; background: #0e0e0e; }
+        .admin-section.open { display: block; }
         #admin-auth-box { text-align: center; background: #111; padding: 40px; border-radius: 12px; border: 1px solid #222; max-width: 420px; margin: 0 auto; }
         #admin-auth-box h3 { color: #f1c40f; margin-bottom: 10px; font-size: 22px; }
         #admin-auth-box p { color: #aaa; font-size: 14px; margin-bottom: 20px; }
@@ -156,8 +164,8 @@
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label { color: #aaa; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-group input, .form-group textarea { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px 14px; border-radius: 6px; font-size: 14px; font-family: 'Poppins', sans-serif; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #f1c40f; }
+        .form-group input, .form-group textarea, .form-group select { background: #1a1a1a; border: 1px solid #333; color: #fff; padding: 10px 14px; border-radius: 6px; font-size: 14px; font-family: 'Poppins', sans-serif; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #f1c40f; }
         .form-group textarea { resize: vertical; min-height: 80px; }
         .form-group.full-width { grid-column: 1 / -1; }
         .photo-upload-box { display: grid; grid-template-columns: 220px 1fr; gap: 16px; align-items: center; background: #1a1a1a; border: 1px dashed #444; border-radius: 8px; padding: 14px; }
@@ -181,6 +189,9 @@
         .admin-room-body h4 { font-size: 16px; margin-bottom: 5px; }
         .admin-room-body .prix { color: #f1c40f; font-size: 13px; margin-bottom: 8px; }
         .admin-room-body .desc { color: #888; font-size: 12px; margin-bottom: 12px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .admin-room-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn-toggle-availability { background: #2f3542; color: #fff; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
+        .btn-toggle-availability:hover { background: #57606f; }
         .btn-delete-room { background: #c0392b; color: #fff; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: background 0.2s; }
         .btn-delete-room:hover { background: #e74c3c; }
 
@@ -191,8 +202,17 @@
         .modal-box .modal-room-name { color: #d4af37; margin-bottom: 25px; font-size: 14px; }
         .modal-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 15px; font-family: 'Poppins', sans-serif; }
         .modal-input:focus { outline: none; border-color: #d4af37; }
+        .identity-upload { border: 1px dashed #444; border-radius: 8px; padding: 12px; margin-bottom: 15px; background: #121212; }
+        .identity-upload label { display: block; color: #aaa; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+        .identity-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-identity { background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; padding: 11px 12px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-identity:hover { border-color: #d4af37; background: #2a2a2a; }
+        .identity-help { color: #888; font-size: 12px; margin-top: 8px; }
         .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
         .btn-modal-cancel { flex: 1; background: #333; color: #fff; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; }
+        .btn-disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
+        .floating-whatsapp { position: fixed; right: 22px; bottom: 22px; width: 58px; height: 58px; border-radius: 50%; background: #25d366; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 9998; box-shadow: 0 12px 24px rgba(0,0,0,0.35); transition: transform 0.2s, background 0.2s; }
+        .floating-whatsapp:hover { transform: translateY(-3px); background: #1ebd58; }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -226,10 +246,13 @@
             .admin-tab { white-space: nowrap; padding: 12px 16px; }
             .admin-rooms-header { flex-direction: column; align-items: stretch; gap: 12px; }
             .form-grid { grid-template-columns: 1fr; }
+            .testimonial-form-grid { grid-template-columns: 1fr; }
+            .identity-actions { grid-template-columns: 1fr; }
             .photo-upload-box { grid-template-columns: 1fr; }
             .photo-preview { width: 100%; }
             .form-actions, .modal-actions { flex-direction: column; }
             .modal-box { padding: 24px; }
+            .floating-whatsapp { right: 16px; bottom: 16px; width: 54px; height: 54px; font-size: 28px; }
         }
     </style>
 </head>
@@ -251,6 +274,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#testimonials">Témoignages</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li><a href="#admin" id="nav-admin-link">Admin</a></li>
         </ul>
     </nav>
 </header>
@@ -321,10 +345,18 @@
             <h4>Témoignages</h4>
             <h2>Ce que pensent nos clients</h2>
         </div>
-        <div class="testimonials-grid">
+        <div class="testimonials-grid" id="testimonials-grid">
             <div class="testimonial-card"><p class="quote">« Le service est impeccable, le personnel est attentionné et le cadre est très reposant. »</p><h4>M. Kouakou François</h4></div>
             <div class="testimonial-card"><p class="quote">« Je ne sais même pas comment qualifier leur expertise. Une expérience mémorable. »</p><h4>M. Ange Patrick</h4></div>
             <div class="testimonial-card"><p class="quote">« Moi je n'ai rien à dire, mais je sais que je vais revenir très bientôt ! »</p><h4>Mme Guiguo Anne</h4></div>
+        </div>
+        <div class="testimonial-form">
+            <h3>Laisser un t&eacute;moignage</h3>
+            <div class="testimonial-form-grid">
+                <input type="text" class="site-input" id="testimonial-name" placeholder="Votre nom *">
+                <textarea class="site-input" id="testimonial-message" rows="3" placeholder="Votre t&eacute;moignage *"></textarea>
+                <button type="button" class="btn btn-primary" id="btn-send-testimonial" style="border:none;">Envoyer</button>
+            </div>
         </div>
     </div>
 </section>
@@ -346,8 +378,8 @@
             <p class="sub-contact">Préparez votre séjour avec nous</p>
             <div class="contact-links">
                 <a href="tel:+2250787534966"><i class="fas fa-phone-alt"></i> 0787534966</a>
-                <a href="mailto:residencekanga@gmail.com"><i class="fas fa-envelope"></i> residencekanga@gmail.com</a>
-                <p><i class="fas fa-map-marker-alt"></i> Bingerville, nouvelle gare</p>
+                <a href="mailto:kangaresidence@gmail.com"><i class="fas fa-envelope"></i> kangaresidence@gmail.com</a>
+                <p><i class="fas fa-map-marker-alt"></i> Abidjan, Cote D'ivoire</p>
             </div>
             <a href="https://wa.me/2250787534966?text=Bonjour,%20je%20souhaite%20réserver%20un%20logement" class="btn btn-whatsapp" target="_blank" rel="noopener">
                 <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
@@ -357,7 +389,7 @@
 </section>
 
 <!-- ===================== ESPACE ADMIN ===================== -->
-<section class="admin-section">
+<section class="admin-section" id="admin">
     <div class="container">
 
         <!-- Connexion -->
@@ -397,10 +429,11 @@
                                 <th>Nom du Client</th>
                                 <th>Téléphone</th>
                                 <th>Chambre</th>
+                                <th>Carte</th>
                             </tr>
                         </thead>
                         <tbody id="table-reservations-body">
-                            <tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>
+                            <tr><td colspan="5" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -424,6 +457,13 @@
                         <div class="form-group">
                             <label>Prix (FCFA/nuit) *</label>
                             <input type="text" id="room-prix" class="admin-input" style="margin:0;" placeholder="Ex: 30 000">
+                        </div>
+                        <div class="form-group">
+                            <label>Disponibilit&eacute; *</label>
+                            <select id="room-disponible" class="admin-input" style="margin:0;">
+                                <option value="true">Disponible</option>
+                                <option value="false">Non disponible</option>
+                            </select>
                         </div>
                         <div class="form-group full-width">
                             <label>Photos de la chambre *</label>
@@ -466,6 +506,20 @@
         <p class="modal-room-name" id="modal-room-name"></p>
         <input type="text" class="modal-input" id="modal-nom" placeholder="Votre nom complet *">
         <input type="text" class="modal-input" id="modal-tel" placeholder="Votre numéro de téléphone *">
+        <div class="identity-upload">
+            <label for="modal-identity">Photo de votre carte d'identit&eacute; *</label>
+            <input type="file" id="modal-identity" accept="image/*" style="display:none;">
+            <input type="file" id="modal-identity-camera" accept="image/*" capture="environment" style="display:none;">
+            <div class="identity-actions">
+                <button type="button" class="btn-identity" id="btn-choose-identity">
+                    <i class="fas fa-image"></i> Choisir une photo
+                </button>
+                <button type="button" class="btn-identity" id="btn-camera-identity">
+                    <i class="fas fa-camera"></i> Prendre une photo
+                </button>
+            </div>
+            <p class="identity-help" id="identity-help">Ajoutez ou prenez une photo lisible de votre carte. Elle sera jointe a la demande de reservation.</p>
+        </div>
         <div class="modal-actions">
             <button class="btn-modal-cancel" id="modal-cancel">Annuler</button>
             <button class="btn btn-whatsapp" id="modal-confirm" style="flex:2;justify-content:center;margin-top:0;">
@@ -474,6 +528,10 @@
         </div>
     </div>
 </div>
+
+<a href="https://wa.me/2250787534966?text=Bonjour,%20je%20souhaite%20avoir%20des%20informations%20sur%20vos%20logements" class="floating-whatsapp" id="floating-whatsapp" target="_blank" rel="noopener" aria-label="Contacter Residence Kanga sur WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
 <footer>
     <div class="container footer-container">
@@ -516,11 +574,68 @@ const ADMIN_PASSWORD   = "Kanga2026";
 
 const sb = window.supabase ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
+function escapeHtml(value) {
+    return String(value || "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    }[char]));
+}
+
+function isRoomAvailable(chambre) {
+    return !(chambre.disponible === false || chambre.disponible === "false" || chambre.disponible === 0 || chambre.disponible === "0");
+}
+
+function availabilityLabel(chambre) {
+    return isRoomAvailable(chambre) ? "Disponible" : "Non disponible";
+}
+
+function renderAvailabilityBadge(chambre) {
+    const available = isRoomAvailable(chambre);
+    return `<span class="availability-badge${available ? "" : " unavailable"}">${available ? "Disponible" : "Non disponible"}</span>`;
+}
+
 // ======================================================
 //  MODAL DE RÉSERVATION
 // ======================================================
 let currentRoomName  = "";
 let currentRoomPrice = "";
+let selectedIdentityPhoto = "";
+
+function resetIdentityPhoto() {
+    selectedIdentityPhoto = "";
+    const input = document.getElementById("modal-identity");
+    const cameraInput = document.getElementById("modal-identity-camera");
+    const help = document.getElementById("identity-help");
+    if (input) input.value = "";
+    if (cameraInput) cameraInput.value = "";
+    if (help) help.textContent = "Ajoutez une photo lisible de votre carte. Elle sera jointe a la demande de reservation.";
+}
+
+function prepareIdentityPhoto(file) {
+    return prepareRoomPhoto(file, 700, 0.65);
+}
+
+async function handleIdentityPhotoChange(event) {
+    const file = event.target.files && event.target.files[0];
+    const help = document.getElementById("identity-help");
+    if (!file) {
+        resetIdentityPhoto();
+        return;
+    }
+
+    help.textContent = "Preparation de la photo...";
+    try {
+        selectedIdentityPhoto = await prepareIdentityPhoto(file);
+        help.textContent = "Photo de carte ajoutee.";
+    } catch (err) {
+        console.error(err);
+        resetIdentityPhoto();
+        alert("La photo de la carte ne peut pas etre utilisee. Choisissez une autre image.");
+    }
+}
 
 function ouvrirModalReservation(nom, prix) {
     currentRoomName  = nom;
@@ -528,12 +643,24 @@ function ouvrirModalReservation(nom, prix) {
     document.getElementById("modal-room-name").textContent = nom + " — " + prix + " FCFA/nuit";
     document.getElementById("modal-nom").value = "";
     document.getElementById("modal-tel").value = "";
+    resetIdentityPhoto();
     document.getElementById("reservation-modal").style.display = "flex";
 }
 
 document.getElementById("modal-cancel").addEventListener("click", () => {
     document.getElementById("reservation-modal").style.display = "none";
 });
+
+document.getElementById("btn-choose-identity").addEventListener("click", () => {
+    document.getElementById("modal-identity").click();
+});
+
+document.getElementById("btn-camera-identity").addEventListener("click", () => {
+    document.getElementById("modal-identity-camera").click();
+});
+
+document.getElementById("modal-identity").addEventListener("change", handleIdentityPhotoChange);
+document.getElementById("modal-identity-camera").addEventListener("change", handleIdentityPhotoChange);
 
 document.getElementById("modal-confirm").addEventListener("click", async () => {
     const nomClient = document.getElementById("modal-nom").value.trim();
@@ -542,14 +669,26 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         alert("Veuillez remplir votre nom et votre téléphone.");
         return;
     }
+    if (!selectedIdentityPhoto) {
+        alert("Veuillez ajouter la photo de votre carte d'identite.");
+        return;
+    }
     document.getElementById("reservation-modal").style.display = "none";
 
     try {
-        const { error } = await sb.from("reservation").insert([{
+        let { error } = await sb.from("reservation").insert([{
             client_name:  nomClient,
             client_phone: telClient,
-            room_name:    currentRoomName
+            room_name:    currentRoomName,
+            identity_photo: selectedIdentityPhoto
         }]);
+        if (error && String(error.message || "").toLowerCase().includes("identity_photo")) {
+            ({ error } = await sb.from("reservation").insert([{
+                client_name:  nomClient,
+                client_phone: telClient,
+                room_name:    currentRoomName
+            }]));
+        }
         if (error) throw error;
     } catch (err) {
         console.error("Erreur Supabase réservation:", err);
@@ -560,6 +699,7 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         `*Téléphone* : ${telClient}%0A` +
         `*Chambre* : ${currentRoomName}%0A` +
         `*Tarif* : ${currentRoomPrice} FCFA/nuit%0A%0A` +
+        `Le client a ajoute la photo de sa carte d'identite dans le formulaire du site.%0A%0A` +
         `Merci de me confirmer la disponibilité et la procédure de paiement.`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank", "noopener");
 });
@@ -586,6 +726,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const header = document.getElementById("main-header");
 const navToggle = document.getElementById("nav-toggle");
 const navLinks = document.querySelector(".nav-links");
+const navAdminLink = document.getElementById("nav-admin-link");
+const adminSection = document.getElementById("admin");
 
 navToggle.addEventListener("click", () => {
     navLinks.classList.toggle("open");
@@ -595,6 +737,21 @@ navLinks.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
         navLinks.classList.remove("open");
     });
+});
+
+function openAdminSection() {
+    adminSection.classList.add("open");
+    document.getElementById("admin-auth-error").style.display = "none";
+    setTimeout(() => {
+        adminSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("admin-password").focus({ preventScroll: true });
+    }, 50);
+}
+
+navAdminLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    navLinks.classList.remove("open");
+    openAdminSection();
 });
 
 window.addEventListener("scroll", () => {
@@ -619,6 +776,7 @@ document.querySelectorAll(".admin-tab").forEach(tab => {
 document.getElementById("btn-login-admin").addEventListener("click", () => {
     const val = document.getElementById("admin-password").value;
     if (val === ADMIN_PASSWORD) {
+        adminSection.classList.add("open");
         document.getElementById("admin-auth-box").style.display = "none";
         document.getElementById("admin-content").style.display  = "block";
         chargerReservations();
@@ -632,6 +790,9 @@ document.getElementById("btn-logout").addEventListener("click", () => {
     document.getElementById("admin-content").style.display  = "none";
     document.getElementById("admin-auth-box").style.display = "block";
     document.getElementById("admin-password").value = "";
+    document.getElementById("admin-auth-error").style.display = "none";
+    adminSection.classList.remove("open");
+    window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 // ======================================================
@@ -639,16 +800,16 @@ document.getElementById("btn-logout").addEventListener("click", () => {
 // ======================================================
 async function chargerReservations() {
     const tbody = document.getElementById("table-reservations-body");
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>`;
     if (!sb) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#ff4757;">Connexion Supabase indisponible.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#ff4757;">Connexion Supabase indisponible.</td></tr>`;
         return;
     }
     try {
         const { data, error } = await sb.from("reservation").select("*").order("created_at", { ascending: false });
         if (error) throw error;
         if (!data || data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Aucune réservation.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;">Aucune réservation.</td></tr>`;
             return;
         }
         tbody.innerHTML = data.map(r => {
@@ -658,11 +819,12 @@ async function chargerReservations() {
                 <td style="padding:12px;font-weight:bold;">${r.client_name}</td>
                 <td style="padding:12px;color:#f1c40f;">${r.client_phone}</td>
                 <td style="padding:12px;">${r.room_name}</td>
+                <td style="padding:12px;">${r.identity_photo ? `<a href="${r.identity_photo}" target="_blank" rel="noopener" style="color:#25d366;">Voir</a>` : "—"}</td>
             </tr>`;
         }).join("");
     } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#ff4757;">Erreur lors du chargement.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#ff4757;">Erreur lors du chargement.</td></tr>`;
     }
 }
 document.getElementById("btn-refresh-admin").addEventListener("click", chargerReservations);
@@ -684,7 +846,7 @@ function getRoomPhotos(photoValue) {
     return [photoValue];
 }
 
-function renderRoomGallery(photos, nom, galleryId) {
+function renderRoomGallery(photos, nom, galleryId, badgeHtml = "") {
     const safePhotos = photos.length ? photos : getRoomPhotos("");
     const buttons = safePhotos.length > 1 ? `
         <button type="button" class="room-gallery-btn prev" data-gallery="${galleryId}" data-direction="-1"><i class="fas fa-chevron-left"></i></button>
@@ -695,6 +857,7 @@ function renderRoomGallery(photos, nom, galleryId) {
     return `
         <div class="room-img room-gallery" id="${galleryId}" data-photos='${JSON.stringify(safePhotos)}' data-index="0">
             <img src="${safePhotos[0]}" alt="${nom}">
+            ${badgeHtml}
             ${buttons}
         </div>`;
 }
@@ -742,21 +905,24 @@ async function chargerChambresPubliques() {
             const card = document.createElement("div");
             const photos = getRoomPhotos(ch.photo_url);
             const galleryId = `room-gallery-${ch.id || Math.random().toString(36).slice(2)}`;
+            const available = isRoomAvailable(ch);
             card.className = "room-card room-card-dynamic";
             card.innerHTML = `
-                ${renderRoomGallery(photos, ch.nom, galleryId)}
+                ${renderRoomGallery(photos, ch.nom, galleryId, renderAvailabilityBadge(ch))}
                 <div class="room-info">
-                    <h3>${ch.nom}</h3>
+                    <h3>${escapeHtml(ch.nom)}</h3>
                     <p class="price">à partir de <span>${ch.prix}</span> FCFA/nuit</p>
                     <div class="room-facilities">
-                        <span style="color:#aaa;font-size:13px;line-height:1.5;">${ch.description || ""}</span>
+                        <span style="color:#aaa;font-size:13px;line-height:1.5;">${escapeHtml(ch.description || "")}</span>
                     </div>
-                    <button class="btn btn-primary btn-reserve-dynamic" data-nom="${ch.nom}" data-prix="${ch.prix}" style="width:100%;margin-top:15px;border:none;">Réserver cette chambre</button>
+                    <button class="btn btn-primary btn-reserve-dynamic${available ? "" : " btn-disabled"}" data-nom="${escapeHtml(ch.nom)}" data-prix="${escapeHtml(ch.prix)}" style="width:100%;margin-top:15px;border:none;" ${available ? "" : "disabled"}>${available ? "Réserver cette chambre" : "Chambre non disponible"}</button>
                 </div>`;
             grid.appendChild(card);
-            card.querySelector(".btn-reserve-dynamic").addEventListener("click", () => {
-                ouvrirModalReservation(ch.nom, ch.prix);
-            });
+            if (available) {
+                card.querySelector(".btn-reserve-dynamic").addEventListener("click", () => {
+                    ouvrirModalReservation(ch.nom, ch.prix);
+                });
+            }
         });
     } catch (err) {
         console.error("Erreur chargement chambres publiques:", err);
@@ -785,18 +951,38 @@ async function chargerChambresAdmin() {
             const galleryId = `admin-room-gallery-${ch.id || Math.random().toString(36).slice(2)}`;
             return `
             <div class="admin-room-card">
-                ${renderRoomGallery(photos, ch.nom, galleryId)}
+                ${renderRoomGallery(photos, ch.nom, galleryId, renderAvailabilityBadge(ch))}
                 <div class="admin-room-body">
-                    <h4>${ch.nom}</h4>
-                    <p class="prix">${ch.prix} FCFA/nuit</p>
-                    <p class="desc">${ch.description || "—"}</p>
+                    <h4>${escapeHtml(ch.nom)}</h4>
+                    <p class="prix">${escapeHtml(ch.prix)} FCFA/nuit</p>
+                    <p class="desc">${escapeHtml(ch.description || "—")}</p>
+                    <p class="desc">Statut : ${availabilityLabel(ch)}</p>
                     <p class="desc">${photos.length} photo${photos.length > 1 ? "s" : ""}</p>
-                    <button class="btn-delete-room" data-id="${ch.id}">
-                        <i class="fas fa-trash"></i> Supprimer
-                    </button>
+                    <div class="admin-room-actions">
+                        <button class="btn-toggle-availability" data-id="${ch.id}" data-next="${isRoomAvailable(ch) ? "false" : "true"}">
+                            <i class="fas fa-sync-alt"></i> ${isRoomAvailable(ch) ? "Marquer non disponible" : "Marquer disponible"}
+                        </button>
+                        <button class="btn-delete-room" data-id="${ch.id}">
+                            <i class="fas fa-trash"></i> Supprimer
+                        </button>
+                    </div>
                 </div>
             </div>
         `}).join("");
+
+        grid.querySelectorAll(".btn-toggle-availability").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                const id = btn.dataset.id;
+                const nextValue = btn.dataset.next === "true";
+                const { error } = await sb.from("chambres").update({ disponible: nextValue }).eq("id", id);
+                if (error) {
+                    alert("Impossible de modifier la disponibilite. Ajoute une colonne 'disponible' dans la table chambres si elle n'existe pas encore.");
+                    return;
+                }
+                chargerChambresAdmin();
+                chargerChambresPubliques();
+            });
+        });
 
         grid.querySelectorAll(".btn-delete-room").forEach(btn => {
             btn.addEventListener("click", async () => {
@@ -823,7 +1009,7 @@ function resetPhotoSelection() {
     document.getElementById("room-photo-help").textContent = "Sélectionne jusqu'à 6 photos depuis ta galerie ou ton ordinateur. Elles seront ajoutées automatiquement.";
 }
 
-function prepareRoomPhoto(file) {
+function prepareRoomPhoto(file, maxSize = 900, quality = 0.72) {
     return new Promise((resolve, reject) => {
         if (!file || !file.type.startsWith("image/")) {
             reject(new Error("Le fichier choisi n'est pas une image."));
@@ -834,7 +1020,6 @@ function prepareRoomPhoto(file) {
         reader.onload = () => {
             const img = new Image();
             img.onload = () => {
-                const maxSize = 900;
                 let { width, height } = img;
 
                 if (width > height && width > maxSize) {
@@ -850,7 +1035,7 @@ function prepareRoomPhoto(file) {
                 canvas.height = height;
                 const ctx = canvas.getContext("2d");
                 ctx.drawImage(img, 0, 0, width, height);
-                resolve(canvas.toDataURL("image/jpeg", 0.72));
+                resolve(canvas.toDataURL("image/jpeg", quality));
             };
             img.onerror = () => reject(new Error("Impossible de lire cette photo."));
             img.src = reader.result;
@@ -900,6 +1085,7 @@ document.getElementById("btn-cancel-form").addEventListener("click", () => {
 document.getElementById("btn-save-room").addEventListener("click", async () => {
     const nom   = document.getElementById("room-nom").value.trim();
     const prix  = document.getElementById("room-prix").value.trim();
+    const disponible = document.getElementById("room-disponible").value === "true";
     const photo = selectedRoomPhotos.length === 1 ? selectedRoomPhotos[0] : JSON.stringify(selectedRoomPhotos);
     const desc  = document.getElementById("room-description").value.trim();
 
@@ -913,12 +1099,16 @@ document.getElementById("btn-save-room").addEventListener("click", async () => {
     btn.disabled = true;
 
     try {
-        const { error } = await sb.from("chambres").insert([{ nom, prix, photo_url: photo, description: desc }]);
+        let { error } = await sb.from("chambres").insert([{ nom, prix, photo_url: photo, description: desc, disponible }]);
+        if (error && String(error.message || "").toLowerCase().includes("disponible")) {
+            ({ error } = await sb.from("chambres").insert([{ nom, prix, photo_url: photo, description: desc }]));
+        }
         if (error) throw error;
 
         // Réinitialiser formulaire
         document.getElementById("room-nom").value = "";
         document.getElementById("room-prix").value = "";
+        document.getElementById("room-disponible").value = "true";
         document.getElementById("room-description").value = "";
         resetPhotoSelection();
         document.getElementById("form-add-room").style.display = "none";
@@ -936,10 +1126,79 @@ document.getElementById("btn-save-room").addEventListener("click", async () => {
 });
 
 // ======================================================
+//  TEMOIGNAGES CLIENTS
+// ======================================================
+function getLocalTestimonials() {
+    try {
+        return JSON.parse(localStorage.getItem("kanga_testimonials") || "[]");
+    } catch (err) {
+        return [];
+    }
+}
+
+function saveLocalTestimonials(items) {
+    localStorage.setItem("kanga_testimonials", JSON.stringify(items));
+}
+
+function addTestimonialCard(item) {
+    const grid = document.getElementById("testimonials-grid");
+    const card = document.createElement("div");
+    card.className = "testimonial-card";
+    card.innerHTML = `<p class="quote">&laquo; ${escapeHtml(item.message)} &raquo;</p><h4>${escapeHtml(item.name)}</h4>`;
+    grid.appendChild(card);
+}
+
+async function chargerTemoignages() {
+    getLocalTestimonials().forEach(addTestimonialCard);
+
+    if (!sb) return;
+    try {
+        const { data, error } = await sb.from("temoignages").select("*").order("created_at", { ascending: false }).limit(12);
+        if (error || !data) return;
+        data.reverse().forEach(item => addTestimonialCard({
+            name: item.name || item.nom || "Client",
+            message: item.message || item.temoignage || ""
+        }));
+    } catch (err) {
+        console.warn("Temoignages Supabase indisponibles:", err);
+    }
+}
+
+document.getElementById("btn-send-testimonial").addEventListener("click", async () => {
+    const nameInput = document.getElementById("testimonial-name");
+    const messageInput = document.getElementById("testimonial-message");
+    const item = {
+        name: nameInput.value.trim(),
+        message: messageInput.value.trim()
+    };
+
+    if (!item.name || !item.message) {
+        alert("Veuillez remplir votre nom et votre temoignage.");
+        return;
+    }
+
+    addTestimonialCard(item);
+    const localItems = getLocalTestimonials();
+    localItems.push(item);
+    saveLocalTestimonials(localItems.slice(-20));
+    nameInput.value = "";
+    messageInput.value = "";
+
+    if (sb) {
+        try {
+            await sb.from("temoignages").insert([item]);
+        } catch (err) {
+            console.warn("Temoignage garde sur cet appareil seulement:", err);
+        }
+    }
+});
+
+// ======================================================
 //  INITIALISATION
 // ======================================================
 document.addEventListener("DOMContentLoaded", () => {
     chargerChambresPubliques(); // Charge les chambres Supabase sur le site dès l'ouverture
+    chargerTemoignages();
 });
 </script>
 </body>
