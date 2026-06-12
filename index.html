@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -394,7 +394,7 @@
 
         <!-- Connexion -->
         <div id="admin-auth-box">
-            <h3>🔒 Espace Administrateur</h3>
+            <h3><i class="fas fa-lock"></i> Espace Administrateur</h3>
             <p>Entrez le mot de passe pour accéder au panneau d'administration.</p>
             <input type="password" id="admin-password" class="admin-input" placeholder="Mot de passe">
             <button id="btn-login-admin" class="btn-admin-gold">Se connecter</button>
@@ -405,21 +405,21 @@
         <div id="admin-content">
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:30px;">
-                <h2 style="color:#f1c40f;font-size:24px;">⚙️ Panneau d'Administration</h2>
+                <h2 style="color:#f1c40f;font-size:24px;"><i class="fas fa-cog"></i> Panneau d'Administration</h2>
                 <button id="btn-logout" style="background:#333;color:#fff;border:none;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px;">Déconnexion</button>
             </div>
 
             <!-- Onglets -->
             <div class="admin-tabs">
-                <button class="admin-tab active" data-tab="reservations">📋 Réservations</button>
-                <button class="admin-tab" data-tab="gestion-chambres">🏨 Gérer les chambres</button>
+                <button class="admin-tab active" data-tab="reservations"><i class="fas fa-list"></i> Réservations</button>
+                <button class="admin-tab" data-tab="gestion-chambres"><i class="fas fa-hotel"></i> Gérer les chambres</button>
             </div>
 
             <!-- Onglet Réservations -->
             <div class="admin-panel active" id="panel-reservations">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
                     <h3 style="color:#f1c40f;">Liste des Réservations</h3>
-                    <button id="btn-refresh-admin" class="btn-admin-gold" style="width:auto;padding:8px 18px;">🔄 Actualiser</button>
+                    <button id="btn-refresh-admin" class="btn-admin-gold" style="width:auto;padding:8px 18px;"><i class="fas fa-sync-alt"></i> Actualiser</button>
                 </div>
                 <div class="reservations-table-wrap">
                     <table>
@@ -448,7 +448,7 @@
 
                 <!-- Formulaire d'ajout -->
                 <div id="form-add-room">
-                    <h4>➕ Nouvelle chambre</h4>
+                    <h4>âž• Nouvelle chambre</h4>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Nom de la chambre *</label>
@@ -483,7 +483,7 @@
                             <textarea id="room-description" class="admin-input" style="margin:0;" placeholder="Décrivez les équipements, le style, les avantages..."></textarea>
                         </div>
                         <div class="form-actions">
-                            <button id="btn-save-room" class="btn-admin-gold" style="width:auto;padding:11px 30px;">💾 Enregistrer la chambre</button>
+                            <button id="btn-save-room" class="btn-admin-gold" style="width:auto;padding:11px 30px;"><i class="fas fa-save"></i> Enregistrer la chambre</button>
                             <button id="btn-cancel-form" class="btn-cancel">Annuler</button>
                         </div>
                     </div>
@@ -603,9 +603,11 @@ function renderAvailabilityBadge(chambre) {
 let currentRoomName  = "";
 let currentRoomPrice = "";
 let selectedIdentityPhoto = "";
+let selectedIdentityShareFile = null;
 
 function resetIdentityPhoto() {
     selectedIdentityPhoto = "";
+    selectedIdentityShareFile = null;
     const input = document.getElementById("modal-identity");
     const cameraInput = document.getElementById("modal-identity-camera");
     const help = document.getElementById("identity-help");
@@ -615,7 +617,7 @@ function resetIdentityPhoto() {
 }
 
 function prepareIdentityPhoto(file) {
-    return prepareRoomPhoto(file, 700, 0.65);
+    return compressImage(file, 520, 0.5);
 }
 
 async function handleIdentityPhotoChange(event) {
@@ -628,7 +630,9 @@ async function handleIdentityPhotoChange(event) {
 
     help.textContent = "Preparation de la photo...";
     try {
-        selectedIdentityPhoto = await prepareIdentityPhoto(file);
+        const preparedPhoto = await prepareIdentityPhoto(file);
+        selectedIdentityPhoto = preparedPhoto.dataUrl;
+        selectedIdentityShareFile = new File([preparedPhoto.blob], "carte-identite.jpg", { type: "image/jpeg" });
         help.textContent = "Photo de carte ajoutee.";
     } catch (err) {
         console.error(err);
@@ -694,14 +698,28 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         console.error("Erreur Supabase réservation:", err);
     }
 
-    const msg = `Bonjour Résidence Kanga,%0A%0A` +
-        `*Nouveau Client* : ${nomClient}%0A` +
-        `*Téléphone* : ${telClient}%0A` +
-        `*Chambre* : ${currentRoomName}%0A` +
-        `*Tarif* : ${currentRoomPrice} FCFA/nuit%0A%0A` +
-        `Le client a ajoute la photo de sa carte d'identite dans le formulaire du site.%0A%0A` +
+    const shareText = `Bonjour Résidence Kanga,\n\n` +
+        `*Nouveau Client* : ${nomClient}\n` +
+        `*Téléphone* : ${telClient}\n` +
+        `*Chambre* : ${currentRoomName}\n` +
+        `*Tarif* : ${currentRoomPrice} FCFA/nuit\n\n` +
+        `Photo de la carte d'identité jointe.\n\n` +
         `Merci de me confirmer la disponibilité et la procédure de paiement.`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, "_blank", "noopener");
+
+    if (selectedIdentityShareFile && navigator.canShare && navigator.canShare({ files: [selectedIdentityShareFile] })) {
+        try {
+            await navigator.share({
+                files: [selectedIdentityShareFile],
+                text: shareText,
+                title: "Reservation Residence Kanga"
+            });
+            return;
+        } catch (err) {
+            console.warn("Partage de la photo annule ou indisponible:", err);
+        }
+    }
+
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(shareText)}`, "_blank", "noopener");
 });
 
 // ======================================================
@@ -1009,40 +1027,55 @@ function resetPhotoSelection() {
     document.getElementById("room-photo-help").textContent = "Sélectionne jusqu'à 6 photos depuis ta galerie ou ton ordinateur. Elles seront ajoutées automatiquement.";
 }
 
-function prepareRoomPhoto(file, maxSize = 900, quality = 0.72) {
+function compressImage(file, maxSize = 900, quality = 0.72) {
     return new Promise((resolve, reject) => {
         if (!file || !file.type.startsWith("image/")) {
             reject(new Error("Le fichier choisi n'est pas une image."));
             return;
         }
 
-        const reader = new FileReader();
-        reader.onload = () => {
-            const img = new Image();
-            img.onload = () => {
-                let { width, height } = img;
+        const imageUrl = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => {
+            let { width, height } = img;
 
-                if (width > height && width > maxSize) {
-                    height = Math.round((height * maxSize) / width);
-                    width = maxSize;
-                } else if (height >= width && height > maxSize) {
-                    width = Math.round((width * maxSize) / height);
-                    height = maxSize;
+            if (width > height && width > maxSize) {
+                height = Math.round((height * maxSize) / width);
+                width = maxSize;
+            } else if (height >= width && height > maxSize) {
+                width = Math.round((width * maxSize) / height);
+                height = maxSize;
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext("2d", { alpha: false });
+            ctx.drawImage(img, 0, 0, width, height);
+            URL.revokeObjectURL(imageUrl);
+
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    reject(new Error("Impossible de compresser cette photo."));
+                    return;
                 }
 
-                const canvas = document.createElement("canvas");
-                canvas.width = width;
-                canvas.height = height;
-                const ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0, width, height);
-                resolve(canvas.toDataURL("image/jpeg", quality));
-            };
-            img.onerror = () => reject(new Error("Impossible de lire cette photo."));
-            img.src = reader.result;
+                const reader = new FileReader();
+                reader.onload = () => resolve({ dataUrl: reader.result, blob });
+                reader.onerror = () => reject(new Error("Impossible d'ouvrir cette photo."));
+                reader.readAsDataURL(blob);
+            }, "image/jpeg", quality);
         };
-        reader.onerror = () => reject(new Error("Impossible d'ouvrir cette photo."));
-        reader.readAsDataURL(file);
+        img.onerror = () => {
+            URL.revokeObjectURL(imageUrl);
+            reject(new Error("Impossible de lire cette photo."));
+        };
+        img.src = imageUrl;
     });
+}
+
+function prepareRoomPhoto(file, maxSize = 900, quality = 0.72) {
+    return compressImage(file, maxSize, quality).then(photo => photo.dataUrl);
 }
 
 document.getElementById("btn-choose-photo").addEventListener("click", () => {
@@ -1120,7 +1153,7 @@ document.getElementById("btn-save-room").addEventListener("click", async () => {
         console.error(err);
         alert("Erreur lors de l'enregistrement. Vérifie ta connexion et ta table Supabase.");
     } finally {
-        btn.textContent = "💾 Enregistrer la chambre";
+        btn.innerHTML = '<i class="fas fa-save"></i> Enregistrer la chambre';
         btn.disabled = false;
     }
 });
@@ -1203,3 +1236,4 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
+
