@@ -202,12 +202,6 @@
         .modal-box .modal-room-name { color: #d4af37; margin-bottom: 25px; font-size: 14px; }
         .modal-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 15px; font-family: 'Poppins', sans-serif; }
         .modal-input:focus { outline: none; border-color: #d4af37; }
-        .identity-upload { border: 1px dashed #444; border-radius: 8px; padding: 12px; margin-bottom: 15px; background: #121212; }
-        .identity-upload label { display: block; color: #aaa; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
-        .identity-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-identity { background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; padding: 11px 12px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-identity:hover { border-color: #d4af37; background: #2a2a2a; }
-        .identity-help { color: #888; font-size: 12px; margin-top: 8px; }
         .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
         .btn-modal-cancel { flex: 1; background: #333; color: #fff; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; }
         .btn-disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
@@ -247,7 +241,6 @@
             .admin-rooms-header { flex-direction: column; align-items: stretch; gap: 12px; }
             .form-grid { grid-template-columns: 1fr; }
             .testimonial-form-grid { grid-template-columns: 1fr; }
-            .identity-actions { grid-template-columns: 1fr; }
             .photo-upload-box { grid-template-columns: 1fr; }
             .photo-preview { width: 100%; }
             .form-actions, .modal-actions { flex-direction: column; }
@@ -429,11 +422,10 @@
                                 <th>Nom du Client</th>
                                 <th>Téléphone</th>
                                 <th>Chambre</th>
-                                <th>Carte</th>
                             </tr>
                         </thead>
                         <tbody id="table-reservations-body">
-                            <tr><td colspan="5" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>
+                            <tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -506,20 +498,6 @@
         <p class="modal-room-name" id="modal-room-name"></p>
         <input type="text" class="modal-input" id="modal-nom" placeholder="Votre nom complet *">
         <input type="text" class="modal-input" id="modal-tel" placeholder="Votre numéro de téléphone *">
-        <div class="identity-upload">
-            <label for="modal-identity">Photo de votre carte d'identit&eacute; *</label>
-            <input type="file" id="modal-identity" accept="image/*" style="display:none;">
-            <input type="file" id="modal-identity-camera" accept="image/*" capture="environment" style="display:none;">
-            <div class="identity-actions">
-                <button type="button" class="btn-identity" id="btn-choose-identity">
-                    <i class="fas fa-image"></i> Choisir une photo
-                </button>
-                <button type="button" class="btn-identity" id="btn-camera-identity">
-                    <i class="fas fa-camera"></i> Prendre une photo
-                </button>
-            </div>
-            <p class="identity-help" id="identity-help">Ajoutez ou prenez une photo lisible de votre carte. Elle sera jointe a la demande de reservation.</p>
-        </div>
         <div class="modal-actions">
             <button class="btn-modal-cancel" id="modal-cancel">Annuler</button>
             <button class="btn btn-whatsapp" id="modal-confirm" style="flex:2;justify-content:center;margin-top:0;">
@@ -602,44 +580,6 @@ function renderAvailabilityBadge(chambre) {
 // ======================================================
 let currentRoomName  = "";
 let currentRoomPrice = "";
-let selectedIdentityPhoto = "";
-let selectedIdentityShareFile = null;
-
-function resetIdentityPhoto() {
-    selectedIdentityPhoto = "";
-    selectedIdentityShareFile = null;
-    const input = document.getElementById("modal-identity");
-    const cameraInput = document.getElementById("modal-identity-camera");
-    const help = document.getElementById("identity-help");
-    if (input) input.value = "";
-    if (cameraInput) cameraInput.value = "";
-    if (help) help.textContent = "Ajoutez une photo lisible de votre carte. Elle sera jointe a la demande de reservation.";
-}
-
-function prepareIdentityPhoto(file) {
-    return compressImage(file, 520, 0.5);
-}
-
-async function handleIdentityPhotoChange(event) {
-    const file = event.target.files && event.target.files[0];
-    const help = document.getElementById("identity-help");
-    if (!file) {
-        resetIdentityPhoto();
-        return;
-    }
-
-    help.textContent = "Preparation de la photo...";
-    try {
-        const preparedPhoto = await prepareIdentityPhoto(file);
-        selectedIdentityPhoto = preparedPhoto.dataUrl;
-        selectedIdentityShareFile = new File([preparedPhoto.blob], "carte-identite.jpg", { type: "image/jpeg" });
-        help.textContent = "Photo de carte ajoutee.";
-    } catch (err) {
-        console.error(err);
-        resetIdentityPhoto();
-        alert("La photo de la carte ne peut pas etre utilisee. Choisissez une autre image.");
-    }
-}
 
 function ouvrirModalReservation(nom, prix) {
     currentRoomName  = nom;
@@ -647,24 +587,12 @@ function ouvrirModalReservation(nom, prix) {
     document.getElementById("modal-room-name").textContent = nom + " — " + prix + " FCFA/nuit";
     document.getElementById("modal-nom").value = "";
     document.getElementById("modal-tel").value = "";
-    resetIdentityPhoto();
     document.getElementById("reservation-modal").style.display = "flex";
 }
 
 document.getElementById("modal-cancel").addEventListener("click", () => {
     document.getElementById("reservation-modal").style.display = "none";
 });
-
-document.getElementById("btn-choose-identity").addEventListener("click", () => {
-    document.getElementById("modal-identity").click();
-});
-
-document.getElementById("btn-camera-identity").addEventListener("click", () => {
-    document.getElementById("modal-identity-camera").click();
-});
-
-document.getElementById("modal-identity").addEventListener("change", handleIdentityPhotoChange);
-document.getElementById("modal-identity-camera").addEventListener("change", handleIdentityPhotoChange);
 
 document.getElementById("modal-confirm").addEventListener("click", async () => {
     const nomClient = document.getElementById("modal-nom").value.trim();
@@ -673,26 +601,14 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         alert("Veuillez remplir votre nom et votre téléphone.");
         return;
     }
-    if (!selectedIdentityPhoto) {
-        alert("Veuillez ajouter la photo de votre carte d'identite.");
-        return;
-    }
     document.getElementById("reservation-modal").style.display = "none";
 
     try {
         let { error } = await sb.from("reservation").insert([{
             client_name:  nomClient,
             client_phone: telClient,
-            room_name:    currentRoomName,
-            identity_photo: selectedIdentityPhoto
+            room_name:    currentRoomName
         }]);
-        if (error && String(error.message || "").toLowerCase().includes("identity_photo")) {
-            ({ error } = await sb.from("reservation").insert([{
-                client_name:  nomClient,
-                client_phone: telClient,
-                room_name:    currentRoomName
-            }]));
-        }
         if (error) throw error;
     } catch (err) {
         console.error("Erreur Supabase réservation:", err);
@@ -703,21 +619,7 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         `*Téléphone* : ${telClient}\n` +
         `*Chambre* : ${currentRoomName}\n` +
         `*Tarif* : ${currentRoomPrice} FCFA/nuit\n\n` +
-        `Photo de la carte d'identité jointe.\n\n` +
         `Merci de me confirmer la disponibilité et la procédure de paiement.`;
-
-    if (selectedIdentityShareFile && navigator.canShare && navigator.canShare({ files: [selectedIdentityShareFile] })) {
-        try {
-            await navigator.share({
-                files: [selectedIdentityShareFile],
-                text: shareText,
-                title: "Reservation Residence Kanga"
-            });
-            return;
-        } catch (err) {
-            console.warn("Partage de la photo annule ou indisponible:", err);
-        }
-    }
 
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(shareText)}`, "_blank", "noopener");
 });
@@ -818,16 +720,16 @@ document.getElementById("btn-logout").addEventListener("click", () => {
 // ======================================================
 async function chargerReservations() {
     const tbody = document.getElementById("table-reservations-body");
-    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>`;
     if (!sb) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#ff4757;">Connexion Supabase indisponible.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#ff4757;">Connexion Supabase indisponible.</td></tr>`;
         return;
     }
     try {
         const { data, error } = await sb.from("reservation").select("*").order("created_at", { ascending: false });
         if (error) throw error;
         if (!data || data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;">Aucune réservation.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Aucune réservation.</td></tr>`;
             return;
         }
         tbody.innerHTML = data.map(r => {
@@ -837,12 +739,11 @@ async function chargerReservations() {
                 <td style="padding:12px;font-weight:bold;">${r.client_name}</td>
                 <td style="padding:12px;color:#f1c40f;">${r.client_phone}</td>
                 <td style="padding:12px;">${r.room_name}</td>
-                <td style="padding:12px;">${r.identity_photo ? `<a href="${r.identity_photo}" target="_blank" rel="noopener" style="color:#25d366;">Voir</a>` : "—"}</td>
             </tr>`;
         }).join("");
     } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:20px;color:#ff4757;">Erreur lors du chargement.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#ff4757;">Erreur lors du chargement.</td></tr>`;
     }
 }
 document.getElementById("btn-refresh-admin").addEventListener("click", chargerReservations);
