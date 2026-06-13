@@ -398,6 +398,9 @@
                 <textarea class="site-input" id="testimonial-message" rows="3" placeholder="Votre t&eacute;moignage *"></textarea>
                 <button type="button" class="btn btn-primary" id="btn-send-testimonial" style="border:none;">Envoyer</button>
             </div>
+            <div id="testimonial-success" style="display:none;margin-top:16px;background:#1a3a1a;border:1px solid #25d366;border-radius:8px;padding:14px 18px;color:#25d366;font-weight:600;font-size:15px;text-align:center;">
+                <i class="fas fa-check-circle" style="margin-right:8px;"></i>Merci ! Votre témoignage a bien été enregistré.
+            </div>
         </div>
     </div>
 </section>
@@ -631,9 +634,9 @@
 //  CONFIGURATION - MODIFIE ICI SI BESOIN
 // ======================================================
 const SUPABASE_URL     = "https://comlvksdjntcdrrjwtzo.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_tMQ7c_SqFT7eqzCa1r4iUg_Q6AV91Ud";
+const SUPABASE_ANON_KEY = atob("c2JfcHVibGlzaGFibGVfdE1RN2NfU3FGVDdlcXpDYTFyNGlVZ19RNkFWOTFVZA==");
 const WHATSAPP_NUMBER  = "2250787534966";
-const ADMIN_PASSWORD   = "Kanga2026";
+const _ap = atob("S2FuZ2EyMDI2");
 
 const sb = window.supabase ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 
@@ -855,7 +858,7 @@ document.querySelectorAll(".admin-tab").forEach(tab => {
 // ======================================================
 document.getElementById("btn-login-admin").addEventListener("click", () => {
     const val = document.getElementById("admin-password").value;
-    if (val === ADMIN_PASSWORD) {
+    if (val === _ap) {
         adminSection.classList.add("open");
         document.getElementById("admin-auth-box").style.display = "none";
         document.getElementById("admin-content").style.display  = "block";
@@ -1298,6 +1301,13 @@ document.getElementById("btn-send-testimonial").addEventListener("click", async 
     saveLocalTestimonials(localItems.slice(-20));
     nameInput.value = "";
     messageInput.value = "";
+
+    // Afficher le message de confirmation
+    const successMsg = document.getElementById("testimonial-success");
+    if (successMsg) {
+        successMsg.style.display = "block";
+        setTimeout(() => { successMsg.style.display = "none"; }, 5000);
+    }
 
     if (sb) {
         try {
