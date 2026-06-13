@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://comlvksdjntcdrrjwtzo.supabase.co https://*.supabase.co; media-src 'self' data: blob:; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://comlvksdjntcdrrjwtzo.supabase.co https://*.supabase.co; media-src 'self' https: data: blob:; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Résidence Kanga - Confort, élégance et sérénité</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,14 +19,14 @@
         img { width: 100%; height: auto; display: block; object-fit: cover; background-color: #222; }
 
         /* HEADER */
-        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: rgba(18,18,18,0.95); transition: all 0.3s ease; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; max-width: 1400px; margin: 0 auto; }
-        .logo img { height: 50px; width: auto; }
+        header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: transparent; transition: all 0.3s ease; padding: 10px 18px 0; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 8px 16px; max-width: 1180px; margin: 0 auto; background: rgba(18,18,18,0.18); color: #ffffff; border: 1px solid rgba(212,175,55,0.22); border-radius: 999px; box-shadow: 0 10px 26px rgba(0,0,0,0.18); backdrop-filter: blur(8px); }
+        .logo img { height: 38px; width: auto; }
         .logo-text { font-size: 22px; font-weight: 700; color: #d4af37; letter-spacing: 1px; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { font-weight: 400; transition: color 0.3s ease; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { font-size: 14px; font-weight: 600; color: #f5f5f5; transition: color 0.3s ease; }
         .nav-links a:hover { color: #d4af37; }
-        .nav-toggle { display: none; width: 42px; height: 42px; border: 1px solid #333; border-radius: 6px; background: #1a1a1a; color: #fff; font-size: 20px; cursor: pointer; align-items: center; justify-content: center; }
+        .nav-toggle { display: none; width: 36px; height: 36px; border: 1px solid rgba(212,175,55,0.65); border-radius: 50%; background: #d4af37; color: #121212; font-size: 18px; cursor: pointer; align-items: center; justify-content: center; }
 
         /* BOUTONS */
         .btn { display: inline-block; padding: 12px 30px; border-radius: 5px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-align: center; }
@@ -38,12 +38,22 @@
         .btn-whatsapp:hover { background-color: #1ebd58; }
 
         /* HERO */
-        .hero-section { height: 100vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/about-img.jpg') no-repeat center center/cover; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: 80px; }
-        .hero-content h3 { color: #d4af37; font-size: 24px; margin-bottom: 10px; letter-spacing: 2px; }
-        .hero-content h1 { font-size: 64px; margin-bottom: 15px; }
+        .hero-section { min-height: 100vh; position: relative; overflow: hidden; background: #121212 url('about-img.jpg') no-repeat center center/cover; display: flex; align-items: center; justify-content: center; text-align: center; padding: 145px 24px 120px; }
+        .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+        .hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.18) 42%, rgba(0,0,0,0.68) 100%); }
+        .hero-content { position: relative; z-index: 2; max-width: 940px; text-shadow: 0 4px 24px rgba(0,0,0,0.48); }
+        .hero-content h3 { color: #f2c94c; font-size: 22px; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        .hero-content h1 { font-size: clamp(46px, 7vw, 86px); margin-bottom: 15px; line-height: 1.05; }
         .hero-content h1 span { color: #d4af37; }
-        .hero-content p { font-size: 20px; margin-bottom: 30px; color: #ccc; }
-        .hero-buttons { display: flex; gap: 20px; justify-content: center; }
+        .hero-content p { font-size: 22px; margin-bottom: 30px; color: #f5f5f5; }
+        .hero-booking-bar { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 3; width: min(88%, 1040px); display: grid; grid-template-columns: 1.1fr 1fr auto; gap: 8px; padding: 8px; border-radius: 999px; background: rgba(18,18,18,0.18); border: 1px solid rgba(212,175,55,0.22); box-shadow: 0 10px 28px rgba(0,0,0,0.18); backdrop-filter: blur(8px); }
+        .hero-booking-field { min-height: 54px; display: flex; align-items: center; gap: 12px; color: #d8d8d8; background: rgba(0,0,0,0.16); border: 1px solid rgba(212,175,55,0.24); border-radius: 999px; padding: 0 16px; text-align: left; font-size: 14px; font-family: 'Poppins', sans-serif; cursor: pointer; transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease; }
+        .hero-booking-field:hover { background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.72); transform: translateY(-1px); }
+        .hero-booking-field i { color: #d4af37; font-size: 18px; }
+        .hero-booking-field strong { display: block; color: #ffffff; font-size: 13px; line-height: 1.1; }
+        .hero-booking-field span { display: block; font-size: 12px; color: #c8c8c8; }
+        .hero-booking-btn { min-height: 54px; border: 1px solid #d4af37; border-radius: 999px; padding: 0 24px; background: #d4af37; color: #121212; font-size: 16px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer; white-space: nowrap; }
+        .hero-booking-btn:hover { background: #f1c40f; transform: translateY(-1px); }
 
         /* À PROPOS */
         .about-section { padding: 100px 0; background-color: #1a1a1a; }
@@ -77,6 +87,8 @@
         .room-info { padding: 25px; }
         .room-info h3 { font-size: 22px; margin-bottom: 10px; }
         .price { color: #d4af37; font-size: 14px; margin-bottom: 15px; }
+        .room-location { display: flex; align-items: center; gap: 7px; color: #d8d8d8; font-size: 13px; margin: -6px 0 14px; }
+        .room-location i { color: #d4af37; }
         .price span { font-size: 24px; font-weight: 700; }
         .room-facilities { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; font-size: 13px; color: #aaa; }
         .room-facilities span { display: flex; align-items: center; gap: 5px; }
@@ -202,6 +214,8 @@
         .modal-box .modal-room-name { color: #d4af37; margin-bottom: 25px; font-size: 14px; }
         .modal-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #121212; border: 1px solid #333; color: #fff; border-radius: 6px; font-size: 15px; font-family: 'Poppins', sans-serif; }
         .modal-input:focus { outline: none; border-color: #d4af37; }
+        .modal-date-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .modal-field label { display: block; color: #d4af37; font-size: 12px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.4px; }
         .modal-actions { display: flex; gap: 10px; margin-top: 10px; }
         .btn-modal-cancel { flex: 1; background: #333; color: #fff; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Poppins', sans-serif; }
         .btn-disabled { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
@@ -212,20 +226,23 @@
         @media (max-width: 768px) {
             body { overflow-x: hidden; }
             .container { padding: 0 16px; }
-            .navbar { padding: 14px 16px; }
-            .logo img { height: 42px; }
+            header { padding: 8px 10px 0; }
+            .navbar { padding: 8px 12px; border-radius: 18px; }
+            .logo img { height: 34px; }
             .nav-toggle { display: flex; }
-            .nav-links { display: none; position: absolute; top: 70px; left: 16px; right: 16px; background: #111; border: 1px solid #333; border-radius: 8px; padding: 14px; flex-direction: column; gap: 0; box-shadow: 0 12px 25px rgba(0,0,0,0.35); }
+            .nav-links { display: none; position: absolute; top: 60px; left: 16px; right: 16px; background: rgba(18,18,18,0.28); color: #fff; border: 1px solid rgba(212,175,55,0.24); border-radius: 12px; padding: 10px; flex-direction: column; gap: 0; box-shadow: 0 12px 25px rgba(0,0,0,0.35); }
             .nav-links.open { display: flex; }
-            .nav-links li { border-bottom: 1px solid #222; }
+            .nav-links li { border-bottom: 1px solid rgba(212,175,55,0.18); }
             .nav-links li:last-child { border-bottom: none; }
-            .nav-links a { display: block; padding: 12px 4px; }
-            .hero-section { min-height: 92vh; height: auto; padding: 110px 16px 55px; }
+            .nav-links a { display: block; padding: 9px 4px; }
+            .hero-section { min-height: 100vh; height: auto; padding: 130px 16px 260px; }
             .hero-content h3 { font-size: 18px; }
             .about-container, .contact-container, .footer-container { grid-template-columns: 1fr; gap: 30px; }
-            .hero-content h1 { font-size: 40px; }
+            .hero-content h1 { font-size: 42px; }
             .hero-content p { font-size: 16px; }
-            .hero-buttons { flex-direction: column; align-items: stretch; max-width: 320px; margin: 0 auto; }
+            .hero-booking-bar { bottom: 20px; width: calc(100% - 24px); grid-template-columns: 1fr; border-radius: 22px; }
+            .hero-booking-field, .hero-booking-btn { min-height: 48px; border-radius: 14px; }
+            .hero-booking-btn { width: 100%; font-size: 15px; }
             .btn { width: 100%; padding: 12px 18px; }
             .rooms-section, .about-section, .services-section, .testimonials-section, .contact-section { padding: 70px 0; }
             .section-header { margin-bottom: 35px; }
@@ -244,8 +261,31 @@
             .photo-upload-box { grid-template-columns: 1fr; }
             .photo-preview { width: 100%; }
             .form-actions, .modal-actions { flex-direction: column; }
+            .modal-date-grid { grid-template-columns: 1fr; gap: 0; }
             .modal-box { padding: 24px; }
             .floating-whatsapp { right: 16px; bottom: 16px; width: 54px; height: 54px; font-size: 28px; }
+        }
+
+        @media (min-width: 769px) and (max-width: 1100px) {
+            .navbar { border-radius: 28px; gap: 18px; padding: 12px 18px; }
+            .nav-links { gap: 16px; font-size: 14px; }
+            .hero-section { padding: 130px 24px 210px; }
+            .hero-booking-bar { width: calc(100% - 48px); grid-template-columns: repeat(2, 1fr); border-radius: 28px; }
+            .hero-booking-field, .hero-booking-btn { min-height: 62px; border-radius: 18px; }
+            .hero-booking-btn { grid-column: 1 / -1; width: 100%; }
+            .about-container, .contact-container { gap: 34px; }
+            .rooms-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 480px) {
+            .logo img { height: 36px; }
+            .hero-section { padding: 118px 14px 278px; }
+            .hero-content h1 { font-size: 36px; }
+            .hero-content p { font-size: 15px; }
+            .hero-booking-bar { gap: 8px; padding: 10px; }
+            .hero-booking-field { padding: 0 14px; }
+            .hero-booking-field strong { font-size: 13px; }
+            .hero-booking-field span { font-size: 12px; }
         }
     </style>
 </head>
@@ -273,14 +313,20 @@
 </header>
 
 <section id="home" class="hero-section">
-    <div class="hero-content">
-        <h3>Bienvenue à</h3>
-        <h1>Résidence <span>Kanga</span></h1>
-        <p>Confort, élégance et sérénité</p>
-        <div class="hero-buttons">
-            <a href="#rooms" class="btn btn-secondary">Découvrir nos chambres</a>
-            <a href="#contact" class="btn btn-primary">Réserver</a>
-        </div>
+    <video class="hero-video" autoplay muted loop playsinline poster="about-img.jpg" aria-hidden="true">
+        <source src="video-accueil.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-booking-bar" aria-label="Réservation rapide">
+        <a class="hero-booking-field" href="#rooms">
+            <i class="fas fa-hotel"></i>
+            <span><strong>Choisir une chambre</strong>Voir les disponibilités</span>
+        </a>
+        <button class="hero-booking-field" id="stay-dates-btn" type="button">
+            <i class="fas fa-calendar-days"></i>
+            <span><strong>Dates du séjour</strong><span id="stay-dates-label">Arrivée et départ</span></span>
+        </button>
+        <a class="hero-booking-btn" href="#contact">Réserver <i class="fas fa-arrow-right"></i></a>
     </div>
 </section>
 
@@ -422,10 +468,12 @@
                                 <th>Nom du Client</th>
                                 <th>Téléphone</th>
                                 <th>Chambre</th>
+                                <th>Arrivée</th>
+                                <th>Départ</th>
                             </tr>
                         </thead>
                         <tbody id="table-reservations-body">
-                            <tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>
+                            <tr><td colspan="6" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -440,7 +488,7 @@
 
                 <!-- Formulaire d'ajout -->
                 <div id="form-add-room">
-                    <h4>âž• Nouvelle chambre</h4>
+                    <h4>Nouvelle chambre</h4>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Nom de la chambre *</label>
@@ -449,6 +497,10 @@
                         <div class="form-group">
                             <label>Prix (FCFA/nuit) *</label>
                             <input type="text" id="room-prix" class="admin-input" style="margin:0;" placeholder="Ex: 30 000">
+                        </div>
+                        <div class="form-group">
+                            <label>Localisation (facultatif)</label>
+                            <input type="text" id="room-localisation" class="admin-input" style="margin:0;" placeholder="Ex: 1er etage, cote jardin">
                         </div>
                         <div class="form-group">
                             <label>Disponibilit&eacute; *</label>
@@ -496,6 +548,16 @@
     <div class="modal-box">
         <h3>Réserver une chambre</h3>
         <p class="modal-room-name" id="modal-room-name"></p>
+        <div class="modal-date-grid">
+            <div class="modal-field">
+                <label for="modal-arrival">Date d'arrivée *</label>
+                <input type="date" class="modal-input" id="modal-arrival">
+            </div>
+            <div class="modal-field">
+                <label for="modal-departure">Date de départ *</label>
+                <input type="date" class="modal-input" id="modal-departure">
+            </div>
+        </div>
         <input type="text" class="modal-input" id="modal-nom" placeholder="Votre nom complet *">
         <input type="text" class="modal-input" id="modal-tel" placeholder="Votre numéro de téléphone *">
         <div class="modal-actions">
@@ -503,6 +565,27 @@
             <button class="btn btn-whatsapp" id="modal-confirm" style="flex:2;justify-content:center;margin-top:0;">
                 <i class="fab fa-whatsapp"></i> Confirmer & WhatsApp
             </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="dates-modal" style="display:none;">
+    <div class="modal-box">
+        <h3>Dates du séjour</h3>
+        <p class="modal-room-name">Choisissez votre date d'arrivée et votre date de départ.</p>
+        <div class="modal-date-grid">
+            <div class="modal-field">
+                <label for="stay-arrival">Date d'arrivée *</label>
+                <input type="date" class="modal-input" id="stay-arrival">
+            </div>
+            <div class="modal-field">
+                <label for="stay-departure">Date de départ *</label>
+                <input type="date" class="modal-input" id="stay-departure">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-modal-cancel" id="dates-cancel">Annuler</button>
+            <button class="btn btn-primary" id="dates-save" style="flex:2;border:none;">Valider les dates</button>
         </div>
     </div>
 </div>
@@ -543,7 +626,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 // ======================================================
-//  CONFIGURATION — MODIFIE ICI SI BESOIN
+//  CONFIGURATION - MODIFIE ICI SI BESOIN
 // ======================================================
 const SUPABASE_URL     = "https://comlvksdjntcdrrjwtzo.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_tMQ7c_SqFT7eqzCa1r4iUg_Q6AV91Ud";
@@ -560,6 +643,17 @@ function escapeHtml(value) {
         '"': "&quot;",
         "'": "&#39;"
     }[char]));
+}
+
+
+function getRoomLocation(chambre) {
+    if (chambre.localisation) return chambre.localisation;
+    const match = String(chambre.description || "").match(/^\[Localisation\]\s*(.+?)(?:\n\n|$)/);
+    return match ? match[1].trim() : "";
+}
+
+function getRoomDescription(chambre) {
+    return String(chambre.description || "").replace(/^\[Localisation\]\s*.+?(?:\n\n|$)/, "").trim();
 }
 
 function isRoomAvailable(chambre) {
@@ -580,23 +674,76 @@ function renderAvailabilityBadge(chambre) {
 // ======================================================
 let currentRoomName  = "";
 let currentRoomPrice = "";
+let selectedArrivalDate = "";
+let selectedDepartureDate = "";
+
+function formatDateFr(dateValue) {
+    if (!dateValue) return "";
+    const date = new Date(dateValue + "T00:00:00");
+    return date.toLocaleDateString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" });
+}
+
+function isValidStayDates(arrival, departure) {
+    return arrival && departure && new Date(departure) > new Date(arrival);
+}
+
+function updateStayDateLabel() {
+    const label = document.getElementById("stay-dates-label");
+    if (!label) return;
+    label.textContent = isValidStayDates(selectedArrivalDate, selectedDepartureDate)
+        ? `${formatDateFr(selectedArrivalDate)} - ${formatDateFr(selectedDepartureDate)}`
+        : "Arrivée et départ";
+}
+
+function saveStayDates(arrival, departure) {
+    if (!isValidStayDates(arrival, departure)) {
+        alert("Choisissez une date de départ après la date d'arrivée.");
+        return false;
+    }
+    selectedArrivalDate = arrival;
+    selectedDepartureDate = departure;
+    updateStayDateLabel();
+    return true;
+}
 
 function ouvrirModalReservation(nom, prix) {
     currentRoomName  = nom;
     currentRoomPrice = prix;
-    document.getElementById("modal-room-name").textContent = nom + " — " + prix + " FCFA/nuit";
+    document.getElementById("modal-room-name").textContent = nom + " - " + prix + " FCFA/nuit";
+    document.getElementById("modal-arrival").value = selectedArrivalDate;
+    document.getElementById("modal-departure").value = selectedDepartureDate;
     document.getElementById("modal-nom").value = "";
     document.getElementById("modal-tel").value = "";
     document.getElementById("reservation-modal").style.display = "flex";
 }
+
+document.getElementById("stay-dates-btn").addEventListener("click", () => {
+    document.getElementById("stay-arrival").value = selectedArrivalDate;
+    document.getElementById("stay-departure").value = selectedDepartureDate;
+    document.getElementById("dates-modal").style.display = "flex";
+});
+
+document.getElementById("dates-cancel").addEventListener("click", () => {
+    document.getElementById("dates-modal").style.display = "none";
+});
+
+document.getElementById("dates-save").addEventListener("click", () => {
+    const arrival = document.getElementById("stay-arrival").value;
+    const departure = document.getElementById("stay-departure").value;
+    if (!saveStayDates(arrival, departure)) return;
+    document.getElementById("dates-modal").style.display = "none";
+});
 
 document.getElementById("modal-cancel").addEventListener("click", () => {
     document.getElementById("reservation-modal").style.display = "none";
 });
 
 document.getElementById("modal-confirm").addEventListener("click", async () => {
+    const arrivalDate = document.getElementById("modal-arrival").value;
+    const departureDate = document.getElementById("modal-departure").value;
     const nomClient = document.getElementById("modal-nom").value.trim();
     const telClient = document.getElementById("modal-tel").value.trim();
+    if (!saveStayDates(arrivalDate, departureDate)) return;
     if (!nomClient || !telClient) {
         alert("Veuillez remplir votre nom et votre téléphone.");
         return;
@@ -607,8 +754,17 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         let { error } = await sb.from("reservation").insert([{
             client_name:  nomClient,
             client_phone: telClient,
-            room_name:    currentRoomName
+            room_name:    currentRoomName,
+            arrival_date: selectedArrivalDate,
+            departure_date: selectedDepartureDate
         }]);
+        if (error && /arrival_date|departure_date/i.test(String(error.message || ""))) {
+            ({ error } = await sb.from("reservation").insert([{
+                client_name:  nomClient,
+                client_phone: telClient,
+                room_name:    currentRoomName
+            }]));
+        }
         if (error) throw error;
     } catch (err) {
         console.error("Erreur Supabase réservation:", err);
@@ -618,6 +774,8 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         `*Nouveau Client* : ${nomClient}\n` +
         `*Téléphone* : ${telClient}\n` +
         `*Chambre* : ${currentRoomName}\n` +
+        `*Date d'arrivée* : ${formatDateFr(selectedArrivalDate)}\n` +
+        `*Date de départ* : ${formatDateFr(selectedDepartureDate)}\n` +
         `*Tarif* : ${currentRoomPrice} FCFA/nuit\n\n` +
         `Merci de me confirmer la disponibilité et la procédure de paiement.`;
 
@@ -716,20 +874,20 @@ document.getElementById("btn-logout").addEventListener("click", () => {
 });
 
 // ======================================================
-//  RÉSERVATIONS — LECTURE
+//  RÉSERVATIONS - LECTURE
 // ======================================================
 async function chargerReservations() {
     const tbody = document.getElementById("table-reservations-body");
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;">Chargement...</td></tr>`;
     if (!sb) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#ff4757;">Connexion Supabase indisponible.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;color:#ff4757;">Connexion Supabase indisponible.</td></tr>`;
         return;
     }
     try {
         const { data, error } = await sb.from("reservation").select("*").order("created_at", { ascending: false });
         if (error) throw error;
         if (!data || data.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#888;">Aucune réservation.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;">Aucune réservation.</td></tr>`;
             return;
         }
         tbody.innerHTML = data.map(r => {
@@ -739,17 +897,19 @@ async function chargerReservations() {
                 <td style="padding:12px;font-weight:bold;">${r.client_name}</td>
                 <td style="padding:12px;color:#f1c40f;">${r.client_phone}</td>
                 <td style="padding:12px;">${r.room_name}</td>
+                <td style="padding:12px;color:#aaa;">${r.arrival_date ? formatDateFr(r.arrival_date) : "-"}</td>
+                <td style="padding:12px;color:#aaa;">${r.departure_date ? formatDateFr(r.departure_date) : "-"}</td>
             </tr>`;
         }).join("");
     } catch (err) {
         console.error(err);
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:#ff4757;">Erreur lors du chargement.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;color:#ff4757;">Erreur lors du chargement.</td></tr>`;
     }
 }
 document.getElementById("btn-refresh-admin").addEventListener("click", chargerReservations);
 
 // ======================================================
-//  CHAMBRES SUPABASE — AFFICHAGE SUR LE SITE PUBLIC
+//  CHAMBRES SUPABASE - AFFICHAGE SUR LE SITE PUBLIC
 // ======================================================
 function getRoomPhotos(photoValue) {
     const fallback = "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800";
@@ -831,8 +991,9 @@ async function chargerChambresPubliques() {
                 <div class="room-info">
                     <h3>${escapeHtml(ch.nom)}</h3>
                     <p class="price">à partir de <span>${ch.prix}</span> FCFA/nuit</p>
+                    ${getRoomLocation(ch) ? `<p class="room-location"><i class="fas fa-location-dot"></i><span>${escapeHtml(getRoomLocation(ch))}</span></p>` : ""}
                     <div class="room-facilities">
-                        <span style="color:#aaa;font-size:13px;line-height:1.5;">${escapeHtml(ch.description || "")}</span>
+                        <span style="color:#aaa;font-size:13px;line-height:1.5;">${escapeHtml(getRoomDescription(ch))}</span>
                     </div>
                     <button class="btn btn-primary btn-reserve-dynamic${available ? "" : " btn-disabled"}" data-nom="${escapeHtml(ch.nom)}" data-prix="${escapeHtml(ch.prix)}" style="width:100%;margin-top:15px;border:none;" ${available ? "" : "disabled"}>${available ? "Réserver cette chambre" : "Chambre non disponible"}</button>
                 </div>`;
@@ -849,7 +1010,7 @@ async function chargerChambresPubliques() {
 }
 
 // ======================================================
-//  CHAMBRES SUPABASE — GESTION ADMIN
+//  CHAMBRES SUPABASE - GESTION ADMIN
 // ======================================================
 async function chargerChambresAdmin() {
     const grid = document.getElementById("admin-rooms-grid");
@@ -874,7 +1035,8 @@ async function chargerChambresAdmin() {
                 <div class="admin-room-body">
                     <h4>${escapeHtml(ch.nom)}</h4>
                     <p class="prix">${escapeHtml(ch.prix)} FCFA/nuit</p>
-                    <p class="desc">${escapeHtml(ch.description || "—")}</p>
+                    ${getRoomLocation(ch) ? `<p class="desc"><i class="fas fa-location-dot"></i> ${escapeHtml(getRoomLocation(ch))}</p>` : ""}
+                    <p class="desc">${escapeHtml(getRoomDescription(ch) || "-")}</p>
                     <p class="desc">Statut : ${availabilityLabel(ch)}</p>
                     <p class="desc">${photos.length} photo${photos.length > 1 ? "s" : ""}</p>
                     <div class="admin-room-actions">
@@ -1020,6 +1182,7 @@ document.getElementById("btn-save-room").addEventListener("click", async () => {
     const nom   = document.getElementById("room-nom").value.trim();
     const prix  = document.getElementById("room-prix").value.trim();
     const disponible = document.getElementById("room-disponible").value === "true";
+    const localisation = document.getElementById("room-localisation").value.trim();
     const photo = selectedRoomPhotos.length === 1 ? selectedRoomPhotos[0] : JSON.stringify(selectedRoomPhotos);
     const desc  = document.getElementById("room-description").value.trim();
 
@@ -1033,15 +1196,20 @@ document.getElementById("btn-save-room").addEventListener("click", async () => {
     btn.disabled = true;
 
     try {
-        let { error } = await sb.from("chambres").insert([{ nom, prix, photo_url: photo, description: desc, disponible }]);
+        const descriptionAvecLocalisation = localisation ? `[Localisation] ${localisation}` + (desc ? `\n\n${desc}` : "") : desc;
+        const chambreData = { nom, prix, photo_url: photo, description: descriptionAvecLocalisation, disponible };
+        let { error } = await sb.from("chambres").insert([chambreData]);
         if (error && String(error.message || "").toLowerCase().includes("disponible")) {
-            ({ error } = await sb.from("chambres").insert([{ nom, prix, photo_url: photo, description: desc }]));
+            const chambreSansDisponibilite = { ...chambreData };
+            delete chambreSansDisponibilite.disponible;
+            ({ error } = await sb.from("chambres").insert([chambreSansDisponibilite]));
         }
         if (error) throw error;
 
         // Réinitialiser formulaire
         document.getElementById("room-nom").value = "";
         document.getElementById("room-prix").value = "";
+        document.getElementById("room-localisation").value = "";
         document.getElementById("room-disponible").value = "true";
         document.getElementById("room-description").value = "";
         resetPhotoSelection();
