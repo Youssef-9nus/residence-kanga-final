@@ -309,7 +309,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#testimonials">Témoignages</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#admin" id="nav-admin-link">Admin</a></li>
+            
         </ul>
     </nav>
 </header>
@@ -809,7 +809,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const header = document.getElementById("main-header");
 const navToggle = document.getElementById("nav-toggle");
 const navLinks = document.querySelector(".nav-links");
-const navAdminLink = document.getElementById("nav-admin-link");
 const adminSection = document.getElementById("admin");
 
 navToggle.addEventListener("click", () => {
@@ -831,11 +830,23 @@ function openAdminSection() {
     }, 50);
 }
 
-navAdminLink.addEventListener("click", (event) => {
-    event.preventDefault();
-    navLinks.classList.remove("open");
-    openAdminSection();
-});
+// Accès admin secret : 5 clics rapides sur le logo
+let _logoClicks = 0;
+let _logoTimer = null;
+const _logoEl = document.querySelector(".logo");
+if (_logoEl) {
+    _logoEl.style.cursor = "pointer";
+    _logoEl.addEventListener("click", () => {
+        _logoClicks++;
+        clearTimeout(_logoTimer);
+        if (_logoClicks >= 5) {
+            _logoClicks = 0;
+            openAdminSection();
+        } else {
+            _logoTimer = setTimeout(() => { _logoClicks = 0; }, 2000);
+        }
+    });
+}
 
 window.addEventListener("scroll", () => {
     header.style.backgroundColor = window.scrollY > 50 ? "#0b0b0b" : "rgba(18,18,18,0.95)";
