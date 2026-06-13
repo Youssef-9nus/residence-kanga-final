@@ -1074,10 +1074,21 @@ function saveLocalTestimonials(items) {
     localStorage.setItem("kanga_testimonials", JSON.stringify(items));
 }
 
+const renderedTestimonialKeys = new Set();
+
+function getTestimonialKey(item) {
+    return `${item.name || ""}|${item.message || ""}`.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
 function addTestimonialCard(item) {
+    const key = getTestimonialKey(item);
+    if (!key || renderedTestimonialKeys.has(key)) return;
+    renderedTestimonialKeys.add(key);
+
     const grid = document.getElementById("testimonials-grid");
     const card = document.createElement("div");
     card.className = "testimonial-card";
+    card.dataset.testimonialKey = key;
     card.innerHTML = `<p class="quote">&laquo; ${escapeHtml(item.message)} &raquo;</p><h4>${escapeHtml(item.name)}</h4>`;
     grid.appendChild(card);
 }
