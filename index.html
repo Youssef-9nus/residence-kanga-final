@@ -236,7 +236,7 @@
             .nav-links li:last-child { border-bottom: none; }
             .nav-links a { display: block; padding: 9px 4px; }
             .hero-section { min-height: 78vh; height: 78vh; padding: 92px 16px 190px; }
-            .hero-video { object-fit: cover; object-position: center 20%; }
+            .hero-video { object-fit: contain; object-position: center center; }
             .hero-content h3 { font-size: 18px; }
             .about-container, .contact-container, .footer-container { grid-template-columns: 1fr; gap: 30px; }
             .hero-content h1 { font-size: 42px; }
@@ -281,7 +281,7 @@
         @media (max-width: 480px) {
             .logo img { height: 32px; }
             .hero-section { min-height: 72vh; height: 72vh; padding: 84px 14px 176px; }
-            .hero-video { object-fit: cover; object-position: center 20%; }
+            .hero-video { object-fit: contain; object-position: center center; }
             .hero-content h1 { font-size: 36px; }
             .hero-content p { font-size: 15px; }
             .hero-booking-bar { gap: 7px; padding: 8px; }
@@ -315,7 +315,7 @@
 </header>
 
 <section id="home" class="hero-section">
-    <video class="hero-video" autoplay muted loop playsinline poster="about-img.jpg" aria-hidden="true">
+    <video class="hero-video" autoplay muted loop playsinline  aria-hidden="true">
         <source src="https://res.cloudinary.com/dwokoxc3z/video/upload/v1/video-accueil_ng57mi.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
