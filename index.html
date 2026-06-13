@@ -689,7 +689,7 @@ function formatDateFr(dateValue) {
 }
 
 function isValidStayDates(arrival, departure) {
-    return arrival && departure && new Date(departure) > new Date(arrival);
+    return arrival && departure && new Date(departure) >= new Date(arrival);
 }
 
 function updateStayDateLabel() {
