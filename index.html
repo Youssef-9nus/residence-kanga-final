@@ -847,18 +847,8 @@ document.getElementById("modal-cancel").addEventListener("click", () => {
     document.getElementById("reservation-modal").style.display = "none";
 });
 
-document.getElementById("modal-confirm").addEventListener("click", async () => {
-    const arrivalDate = document.getElementById("modal-arrival").value;
-    const departureDate = document.getElementById("modal-departure").value;
-    const nomClient = document.getElementById("modal-nom").value.trim();
-    const telClient = document.getElementById("modal-tel").value.trim();
-    if (!saveStayDates(arrivalDate, departureDate)) return;
-    if (!nomClient || !telClient) {
-        alert("Veuillez remplir votre nom et votre téléphone.");
-        return;
-    }
-    document.getElementById("reservation-modal").style.display = "none";
-
+async function enregistrerReservation(nomClient, telClient) {
+    if (!sb) return;
     try {
         let { error } = await sb.from("reservation").insert([{
             client_name:  nomClient,
@@ -878,6 +868,24 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
     } catch (err) {
         console.error("Erreur Supabase réservation:", err);
     }
+}
+
+function ouvrirWhatsAppReservation(shareText) {
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(shareText)}`;
+    window.location.href = whatsappUrl;
+}
+
+document.getElementById("modal-confirm").addEventListener("click", () => {
+    const arrivalDate = document.getElementById("modal-arrival").value;
+    const departureDate = document.getElementById("modal-departure").value;
+    const nomClient = document.getElementById("modal-nom").value.trim();
+    const telClient = document.getElementById("modal-tel").value.trim();
+    if (!saveStayDates(arrivalDate, departureDate)) return;
+    if (!nomClient || !telClient) {
+        alert("Veuillez remplir votre nom et votre téléphone.");
+        return;
+    }
+    document.getElementById("reservation-modal").style.display = "none";
 
     const shareText = `Bonjour Résidence Kanga,\n\n` +
         `*Nouveau Client* : ${nomClient}\n` +
@@ -889,7 +897,8 @@ document.getElementById("modal-confirm").addEventListener("click", async () => {
         `*Tarif* : ${currentRoomPrice} FCFA/nuit\n\n` +
         `Merci de me confirmer la disponibilité et la procédure de paiement.`;
 
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(shareText)}`, "_blank", "noopener");
+    enregistrerReservation(nomClient, telClient);
+    ouvrirWhatsAppReservation(shareText);
 });
 
 // ======================================================
